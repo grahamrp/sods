@@ -59,13 +59,16 @@ x <- x %>%
 
 # drop near-zero variance cols
 
-library(caret)
-x <- x[, -nearZeroVar(x)]
+x <- x[, -caret::nearZeroVar(x)]
 
 # Convert to factors, remove id
 x <- mutate_if(x, is.character, as.factor)
 x <- select(x, -Respondent)
 
+# lump factors
+library(forcats)
+x <- x %>% mutate_at(.vars = vars(Country, CurrencySymbol, VersionControl, AdBlockerReasons, RaceEthnicity),
+          fct_lump, prop = 0.01)
 
 write_rds(x, path = "data/prepared.rds")
 
