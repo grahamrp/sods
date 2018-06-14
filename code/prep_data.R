@@ -47,9 +47,9 @@ multi_varnames <- # Make lookup for valid varnames before spreading
 multi_grid <- expanded_multi %>% 
   ungroup() %>% 
   left_join(multi_varnames) %>%
-  mutate(val = 1L) %>% 
+  mutate(val = 1) %>% 
   select(-column, -answer) %>% 
-  spread(key = encoded_answer, value = val, fill = 0L)
+  spread(key = encoded_answer, value = val, fill = 0)
 
 
 # drop original multi-vars and add dummified versions
@@ -57,9 +57,12 @@ x <- x %>%
   select(-one_of(multi_vars)) %>% 
   left_join(multi_grid)
 
-# drop near-zero variance cols
-
+# Drop near-zero variance cols
 x <- x[, -caret::nearZeroVar(x)]
+
+# Drop vars with lots of missing values
+propMissing <- unlist(lapply(x, function(x) sum(is.na(x)) / length(x)))
+x <- select(x, -one_of(names(propMissing[propMissing > 0.15])))
 
 # Convert to factors, remove id
 x <- mutate_if(x, is.character, as.factor)
@@ -67,10 +70,15 @@ x <- select(x, -Respondent)
 
 # lump factors
 library(forcats)
-x <- x %>% mutate_at(.vars = vars(Country, CurrencySymbol, VersionControl, AdBlockerReasons, RaceEthnicity),
+x <- x %>% mutate_at(.vars = vars(Country, CurrencySymbol, VersionControl, RaceEthnicity),
           fct_lump, prop = 0.01)
+
+# Impute missing values (just fill with mode!)
+x <- as.data.frame(lapply(x, FUN = function(.x) { .x[is.na(.x)] <- Mode(.x); .x }))
+
 
 write_rds(x, path = "data/prepared.rds")
 
 # tidy up
-rm(expanded_multi, multi_grid, multi_varnames, stack_multi, multi_vars, sc_count, x)
+rm(expanded_multi, multi_grid, multi_varnames, stack_multi, multi_vars, sc_count, x,
+   propMissing)
