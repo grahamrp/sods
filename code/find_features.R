@@ -1,10 +1,9 @@
+# Use caret rfe to find good features from the remaining set
+library(caret)
 library(dplyr)
 library(readr)
 
 sods <- read_rds("data/prepared.rds")
-
-# Use caret rfe to find good features from the remaining set
-library(caret)
 
 subsets <- c(3, 5, 7, 9)
 set.seed(100)

@@ -29,33 +29,33 @@ ui <- semanticPage(
              div(class = "content", "Stack Overflow Developer Survey Salary Predictor")
           )
       )
-      ),
+  ),
   div(class = "ui raised segment",
       a(class = "ui orange ribbon label", "Salary Predictor"),
-  div(class = "ui grid",
-      div(class = "four wide column",
-          div(class = "ui horizontal divider",  uiicon("edit"), "Predict Your Salary!"),
-          selectInput("Country", "Country", choices = choiceCountry),
-          selectInput("YearsCodingProf", "YearsCodingProf", choices = choiceYearsCodingProf),
-          selectInput("SalaryType", "SalaryType", choices = choiceSalaryType),
-          selectInput("Age", "Age", choices = choiceAge),
-          selectInput("FormalEducation", "FormalEducation", choices = choiceFormalEducation),
-          selectInput("NumberMonitors", "NumberMonitors", choices = choiceNumberMonitors),
-          helpText("This prediction model was built just for fun. Don't buy an extra monitor because of it! The model is built on the best six predictors of salary from the 2018 Stack Overflow Developer Survey using xgboost.")
-      ),
-      
-      div(class = "twelve wide column",
+      div(class = "ui grid",
+          div(class = "four wide column",
+              div(class = "ui horizontal divider",  uiicon("edit"), "Predict Your Salary!"),
+              selectInput("Country", "Country", choices = choiceCountry),
+              selectInput("YearsCodingProf", "YearsCodingProf", choices = choiceYearsCodingProf),
+              selectInput("SalaryType", "SalaryType", choices = choiceSalaryType),
+              selectInput("Age", "Age", choices = choiceAge),
+              selectInput("FormalEducation", "FormalEducation", choices = choiceFormalEducation),
+              selectInput("NumberMonitors", "NumberMonitors", choices = choiceNumberMonitors),
+              helpText("This prediction model was built just for fun. Don't buy an extra monitor because of it! The model is built on the best six predictors of salary from the 2018 Stack Overflow Developer Survey using xgboost.")
+          ),
           
-          div(class = "ui horizontal divider", uiicon("chart line"), "Prediction Plot"),
-          plotOutput("predHistPlt"),
-          
-          div(class = "ui horizontal divider", uiicon("table"), "Prediction History"),
-          helpText("Current is first, predictions in USD."),
-          tableOutput("predHistTbl")
+          div(class = "twelve wide column",
+              
+              div(class = "ui horizontal divider", uiicon("chart line"), "Prediction Plot"),
+              plotOutput("predHistPlt"),
+              
+              div(class = "ui horizontal divider", uiicon("table"), "Prediction History"),
+              helpText("Current is first, predictions in USD."),
+              tableOutput("predHistTbl")
+          )
       )
   )
-  )
-  #verbatimTextOutput("debug")
+  
 )
 
 server <- shinyServer(function(input, output) {
@@ -88,14 +88,9 @@ server <- shinyServer(function(input, output) {
   
   output$predHistPlt <- renderPlot({
     ggplot(rv$predictions, aes(x = seq_along(Prediction), y = Prediction)) +
-      geom_point(size = 3, col = "orange") + geom_line(linetype = "dotted") +
+      geom_point(size = 3, col = "orange") + geom_line(col = "darkorange") +
       labs(x = NULL, y = "Predicted Salary ($)", title = "Predicted Salary in Dollars") +
       lims(x = c(1, NA), y = c(1e3, NA))
-  })
-  
-  output$debug <- renderPrint({
-    req(nrow(rv$predictions) > 0)
-    rv$predictions
   })
   
 })
