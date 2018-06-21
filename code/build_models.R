@@ -64,6 +64,6 @@ qplot(xgb1$results$RMSE, geom = "density") +
   geom_density(data = data.frame(RMSE = xgbLinear1$results$RMSE), aes(x = RMSE), col = "red")
 
 # Go for xgbLinear as it has lower variance
-finalModel <- xgbLinear1$finalModel
-write_rds(finalModel, "data/finalModel_xgbLinear.rds")
+finalModel <- xgbLinear1
+write_rds(finalModel, "data/finalModel_xgbLinear_caret.rds")
 
