@@ -8,10 +8,10 @@ library(tibble)
 library(xgboost)
 theme_set(theme_bw())
 # Final model
-model <- read_rds("../data/finalModel_xgbLinear_caret.rds")
+model <- read_rds("finalModel_xgbLinear_caret.rds")
 
 # Lookups for inputs
-lu <- read_rds("../data/shiny_summary_data.rds")
+lu <- read_rds("shiny_summary_data.rds")
 choiceCountry <- levels(lu$Country)
 choiceYearsCodingProf <- levels(lu$YearsCodingProf)
 choiceSalaryType <- levels(lu$SalaryType)
