@@ -64,7 +64,7 @@ I also imputed a few missing values, and took the `log` of Salary to make modell
 
 I wanted just a few of the best variables to use as predictors in my model, then I could make a shiny app with just a few input fields for users to predict an average salary for similar developers, or just see how much the variables affect salary.
 
-As speed was of the essence (to play with shiny.semantic ASAP!) I took an automated approach to finding some good candidate variables for my modle.
+As speed was of the essence (to play with shiny.semantic ASAP!) I took an automated approach to find some good candidate variables for my model.
 
 The **caret** package provides a *recursive feature elimination* function, starting with a model with all the predictors and then the least important variables are removed. I wasn't sure how many variables I needed to retain for a good model but caret lets you try different subsets and measures the results:
 
@@ -101,7 +101,7 @@ Number of monitors? Maybe I should consider investing in an extra one! Now is pr
   
 ### Final Model
 
-After again using the **caret** package to try out a few different model types I found XGBoost to produce the most accurate model.
+After again using the **caret** package to try out a few different model types I found XGBoost produced the most accurate model.
 
 
 ```r

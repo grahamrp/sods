@@ -173,7 +173,7 @@ expanded_multi &lt;- stack_multi(x, multi_vars)</code></pre>
 <div id="feature-selection" class="section level2">
 <h2>Feature Selection</h2>
 <p>I wanted just a few of the best variables to use as predictors in my model, then I could make a shiny app with just a few input fields for users to predict an average salary for similar developers, or just see how much the variables affect salary.</p>
-<p>As speed was of the essence (to play with shiny.semantic ASAP!) I took an automated approach to finding some good candidate variables for my modle.</p>
+<p>As speed was of the essence (to play with shiny.semantic ASAP!) I took an automated approach to find some good candidate variables for my model.</p>
 <p>The <strong>caret</strong> package provides a <em>recursive feature elimination</em> function, starting with a model with all the predictors and then the least important variables are removed. I wasn’t sure how many variables I needed to retain for a good model but caret lets you try different subsets and measures the results:</p>
 <pre class="r"><code>subsets &lt;- c(3, 5, 7, 9)
 ctrl &lt;- rfeControl(functions = treebagFuncs,
@@ -203,7 +203,7 @@ rfProfile &lt;- rfe(x = select(x, -LogSalary), y = x$LogSalary,
 </div>
 <div id="final-model" class="section level3">
 <h3>Final Model</h3>
-<p>After again using the <strong>caret</strong> package to try out a few different model types I found XGBoost to produce the most accurate model.</p>
+<p>After again using the <strong>caret</strong> package to try out a few different model types I found XGBoost produced the most accurate model.</p>
 <pre class="r"><code>ctrl &lt;- trainControl(method = &quot;cv&quot;, number = 5)
 xgbLinear1 &lt;- train(LogSalary ~ ., data = x,
                method = &quot;xgbLinear&quot;, trControl = ctrl)</code></pre>
