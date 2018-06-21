@@ -3,7 +3,7 @@
 library(dplyr)
 library(readr)
 
-prn <- read_rds("graham/data/pruned.rds")
+prn <- read_rds("data/pruned.rds")
 
 summary_data <- select(prn, -LogSalary) %>% 
   distinct()
@@ -26,4 +26,4 @@ levels(summary_data$FormalEducation) <- c(
   "Other doctoral degree (Ph.D, Ed.D., etc.)"
   )
 
-write_rds(summary_data, "graham/data/shiny_summary_data.rds")
+write_rds(summary_data, "app/shiny_summary_data.rds")

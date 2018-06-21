@@ -9,7 +9,7 @@ output:
 
 ## Introduction
 
-With the recent release of the [Stack Overflow Developer Survey Results](https://insights.stackoverflow.com/survey/2018/) and it being [Shiny Appreciation Month](https://twitter.com/hashtag/ShinyAppreciation), a couple of at Mango thought it would be fun to each make a Shiny app based on the data and see what we came up with.
+With the recent release of the [Stack Overflow Developer Survey Results](https://insights.stackoverflow.com/survey/2018/) and it being [Shiny Appreciation Month](https://twitter.com/hashtag/ShinyAppreciation), a couple of us at Mango thought it would be fun to each make a Shiny app based on the same data and see what we came up with.
 
 ## The data and idea
 
@@ -21,7 +21,7 @@ The dataset is really rich, with over 100,000 developers responding, covering ar
   * Tools
   * Job Priorities
 
-There are over 100 variables in the dataset, but time is short and one variable caught my eye: **Salary**. I thought it would be fun to build a quick predictive model trying to use only just a few of the most important variables to predict salary, then present the model in a shiny app using the new **shiny.semantic** package as I've been wanting an excuse to check it out.
+There are over 100 variables in the dataset, but time is short and one variable caught my eye: **Salary**. I thought it would be fun to build a quick predictive model trying to use just a few of the most important variables to predict salary, then present the model in a shiny app using the new **shiny.semantic** package as I've been wanting an excuse to check it out.
 
 
 ## Data preparation
@@ -37,13 +37,13 @@ The main data prep issue was questions with multiple responses, e.g. under `DevT
 ```r
 x <- read_csv("data/developer_survey_2018/survey_results_public.csv")
 stack_multi <- function(data, columns) {
-data %>%
+  data %>%
     dplyr::select(Respondent, one_of(columns)) %>%
     tidyr::gather(column, answer, -Respondent) %>%
     dplyr::filter(!is.na(answer)) %>%
     tidyr::unnest(answer = stringr::str_split(answer, ";"))
 }
-
+# After figuring out the multi_var columns:
 expanded_multi <- stack_multi(x, multi_vars)
 ```
 
@@ -123,6 +123,7 @@ I started with a standard `fluidPage` with `fluidRow`s to get a working app, the
 
 
 ```r
+library(shiny.semantic)
 ui <- semanticPage(
   title = "Stack Overflow Developers Survey Salary Predictor",
 
@@ -148,5 +149,7 @@ It is then just a question of finding your way around the [Semantic UI Documenta
 It's amazing what you can do in such a short space of time with R's ecosystem. From quickly building a predictive model using **caret** to making an easy to use and modern-looking web application with **shiny** and **shiny.semantic**.
 
 You can download the full code for the model-building and shiny app [here](https://github.com/grahamrp/sods).
+
+What's interesting is that the other Mango (Sam) took a totally different approach to the data and his Shiny app. Check out his post [here]()!
 
 ![App screenshot](app_pic.png)
