@@ -1,7 +1,9 @@
 
 ## The challenge
 
-Recently I saw that StackOverflow released their survey data and had been posted on Kaggle. The data came with the following context "Want to dive into the results yourself and see what you can learn about salaries or machine learning or diversity in tech?" and given that June is indeed *shiny-appreciation* month, I thought this would be a fun opportunity to combine an interesting public dataset, some exploratory analysis in shiny and uhhh.. my first blog.
+Recently I saw that StackOverflow released their [survey data](https://insights.stackoverflow.com/survey/) and had been posted on Kaggle. The data came with the following context "Want to dive into the results yourself and see what you can learn about salaries or machine learning or diversity in tech?" and given that June is indeed *shiny-appreciation* month, I thought this would be a fun opportunity to combine an interesting public dataset, some exploratory analysis in shiny and uhhh.. my first blog.
+
+Talking about this with a colleague at work, we both decided to independently have a crack and then compare our approaches. You can check out his blog [here]().
 
 ## The data and idea
 
@@ -98,8 +100,6 @@ There are many ways that we can explore a dataset but I have gone for pure simpl
 
 ![](Capture.PNG)
 
-
-
 The full code can be found below:
 
 ```r
@@ -137,7 +137,6 @@ ui <- fluidPage(
   )
   
 )
-
 
 # Defining the server part of the app
 server <- function(input, output) {
