@@ -100,7 +100,7 @@ There are many ways that we can explore a dataset but I have gone for pure simpl
 
 ![](Capture.PNG)
 
-The full code can be found below:
+You can test out the app (with a sample of the total data) [here]( https://grahamrp.shinyapps.io/shinyiteration/) or the full code can be found below:
 
 ```r
 
@@ -211,9 +211,7 @@ shinyApp(ui = ui, server = server)
 
 For me, Shiny's great strength is it's versatility; analysis can come in many shapes and sizes so it is only fitting that Shiny, a framework for sharing analysis, can also be written in multitude of ways. In this blog post, the app wasn't particularly snazzy (so probs not to be shared with the senior managers or as an 'inspirational' linkedin post) but it does what I want: quick exploration, dynamic layout & less than 100 lines of code!
 
-Asides from that, I had a lot of fun exploring the survey data, especially variables relating to health-lifestyle of developers - I'm no physician but, devs, try to do at least some exercise...
+My colleague Graham opted for a totally different app, one which presented the user with a well thought out and defined model. Again demonstrating the many use cases Shiny can have in a project. Not only can it be used at the start as an exploratory tool but also at the end to present findings, predictions and other project outcomes.
 
-Wishing you all a happy end to shiny-appreciation month, keep writing 'em apps, and see ya next time :)
-
-
+Asides from that, I had a lot of fun exploring the survey data, especially variables relating to health-lifestyle of developers - I'm no physician but, devs, try to do at least some exercise... Wishing you all a happy end to shiny-appreciation month, keep writing 'em apps, and see ya next time :)
 
