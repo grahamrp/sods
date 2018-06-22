@@ -1,6 +1,7 @@
 library(caret)
 library(dplyr)
 library(ggplot2)
+library(scales)
 library(shiny)
 library(shiny.semantic)
 library(readr)
@@ -87,10 +88,11 @@ server <- shinyServer(function(input, output) {
   })
   
   output$predHistPlt <- renderPlot({
-    ggplot(rv$predictions, aes(x = seq_along(Prediction), y = Prediction)) +
+    ggplot(rv$predictions, aes(x = seq_along(Prediction), y = round(Prediction, 0))) +
       geom_point(size = 3, col = "orange") + geom_line(col = "darkorange") +
-      labs(x = NULL, y = "Predicted Salary ($)", title = "Predicted Salary in Dollars") +
-      lims(x = c(1, NA), y = c(1e3, NA))
+      labs(x = "Prediction History", y = "Predicted Salary ($)", title = "Predicted Salary in Dollars") +
+      lims(x = c(1, NA), y = c(1e3, NA)) +
+      scale_y_continuous(position = "right", labels = comma)
   })
   
 })
